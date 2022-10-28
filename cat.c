@@ -51,9 +51,6 @@ int main(int argc,char* argv[])
     if(strcmp(tok[0],"-n")==0)
     {
         int count=1;
-        int check=0;
-        for(int i=1;tok[i]!=NULL;i++)
-        check++;
         for(int i=1;tok[i]!=NULL;i++)
         {
             FILE *pointer;
@@ -66,11 +63,16 @@ int main(int argc,char* argv[])
             else
             {
                 character=fgetc(pointer);int flag=0;
-                if(count==1)
-                printf("%d) ",count++);
                 while(character!=EOF)
                 {
                     if(flag==0)
+                    {
+                        printf("%d) ",count++);
+                        printf("%c",character);
+                        flag=3;
+                    }
+                    else
+                    if(flag==3)
                     {
                         printf("%c",character);
                     }
@@ -78,8 +80,7 @@ int main(int argc,char* argv[])
                     if(flag==1)
                     {
                         printf("%c",character);
-                        printf("%d) ",count++);
-                        flag=2;
+                        flag=0;
                     }
                     else
                     if(flag==2)
@@ -88,13 +89,15 @@ int main(int argc,char* argv[])
                         flag=0;
                     }
                     character=fgetc(pointer);
-                    if(character==EOF && flag!=2 && i!=(check-1))
+                    if(character==EOF && flag!=0)
                     {
-                        printf("%d) ",count++);
+                        printf("\n");
                         break;
                     }
-                    if(character==EOF && flag==2)
+                    if(character==EOF && flag==0)
                     {
+                        printf("%d) ",count++);
+                        printf("\n");
                         break;
                     }
                     if(character=='\n')
