@@ -209,7 +209,7 @@ void cd(char **args) {
                 }
             }
         } else if (ct == 0) {
-            chdir(parentcwd);
+            chdir("~");
         }
     }
 }
