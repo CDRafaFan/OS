@@ -74,15 +74,18 @@ int main(int argc,char* argv[])
                     if(flag==1)
                     {
                         printf("%c",character);
+                        printf("%d) ",count++);
                         flag=2;
                     }
                     else
                     if(flag==2)
                     {
-                        printf("%d) %c",count++,character);
+                        printf("%c",character);
                         flag=0;
                     }
                     character=fgetc(pointer);
+                    if(character==EOF)
+                    break;
                     if(character=='\n')
                     flag=1;
                 }
@@ -127,8 +130,6 @@ int main(int argc,char* argv[])
                     if(character=='\n')
                     flag=1;
                 }
-                if(character==EOF && i==(count))
-                printf("$");
             }
             fclose(pointer);
         }
