@@ -51,6 +51,9 @@ int main(int argc,char* argv[])
     if(strcmp(tok[0],"-n")==0)
     {
         int count=1;
+        int check=0;
+        for(int i=1;tok[i]!=NULL;i++)
+        check++;
         for(int i=1;tok[i]!=NULL;i++)
         {
             FILE *pointer;
@@ -85,7 +88,7 @@ int main(int argc,char* argv[])
                         flag=0;
                     }
                     character=fgetc(pointer);
-                    if(character==EOF && flag!=2)
+                    if(character==EOF && flag!=2 && i!=check)
                     {
                         printf("%d) ",count++);
                         break;
