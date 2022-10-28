@@ -112,6 +112,8 @@ int main(int argc,char* argv[])
                     }
                     else
                     {
+                        if(character!=EOF)
+                        printf("%c",character);
                         character=charnext;
                         charnext=fgetc(pointer);
                         if(charnext==EOF)
