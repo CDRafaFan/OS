@@ -48,8 +48,14 @@ int main(int argc,char* argv[])
         if(flag==0)
         {
             int check;
-            char *newdirectory=argv[1];
-            check=mkdir(newdirectory,0777);
+            char *finaldir;
+            finaldir=(char *)malloc(256*sizeof(char));
+            char *newdirectory=argv[1];int d=0;
+            for(int i=0;i<strlen(argv[1])-1;i++)
+            {
+                finaldir[d++]=newdirectory[i];
+            }
+            check=mkdir(finaldir,0777);
         }
     }
     else
