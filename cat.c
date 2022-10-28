@@ -84,7 +84,12 @@ int main(int argc,char* argv[])
                         flag=0;
                     }
                     character=fgetc(pointer);
-                    if(character==EOF)
+                    if(character==EOF && flag!=2)
+                    {
+                        printf("\n");
+                        break;
+                    }
+                    if(character==EOF && flag==2)
                     {
                         printf("\n");
                         break;
