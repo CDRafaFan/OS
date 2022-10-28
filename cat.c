@@ -63,6 +63,7 @@ int main(int argc,char* argv[])
             else
             {
                 character=fgetc(pointer);int flag=0;
+                if(count==1)
                 printf("%d) ",count++);
                 while(character!=EOF)
                 {
@@ -86,6 +87,7 @@ int main(int argc,char* argv[])
                     character=fgetc(pointer);
                     if(character==EOF && flag!=2)
                     {
+                        printf("%d) ",count++);
                         break;
                     }
                     if(character==EOF && flag==2)
