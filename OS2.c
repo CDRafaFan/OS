@@ -200,7 +200,7 @@ void cd(char **args) {
                     path[f++] = parentcwd[i];
                 }
                 path[f++] = '/';
-                for (int i = 0; args[1][i] != '\0'; i++) {
+                for (int i = 0; args[1][i]!= '\0'; i++) {
                     path[f++] = args[1][i];
                 }
                 int suc = chdir(path);
