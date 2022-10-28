@@ -193,7 +193,7 @@ void cd(char **args) {
             } else if (strcmp(args[1], "~") == 0 || strcmp(args[1], "root") == 0) {
                 chdir("~");
             } else {
-                char *path;
+                /*char *path;
                 path = (char *) malloc(256 * sizeof(char));
                 int f = 0;
                 for (int i = 0; parentcwd[i] != '\0'; i++) {
@@ -202,14 +202,14 @@ void cd(char **args) {
                 path[f++] = '/';
                 for (int i = 0; args[1][i]!= '\0'; i++) {
                     path[f++] = args[1][i];
-                }
-                int suc = chdir(path);
+                }*/
+                int suc = chdir(args[1]);
                 if (suc == -1) {
                     printf("No such file or directory");
                 }
             }
         } else if (ct == 0) {
-            chdir("~");
+            chdir(parentcwd);
         }
     }
 }
