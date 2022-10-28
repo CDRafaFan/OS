@@ -54,7 +54,6 @@ int main(int argc,char* argv[])
         for(int i=1;tok[i]!=NULL;i++)
         {
             FILE *pointer;
-            char character;
             pointer=fopen(tok[i],"r");
             if(pointer==NULL)
             {
@@ -62,10 +61,13 @@ int main(int argc,char* argv[])
             }
             else
             {
+                char character;char charnext;
                 character=fgetc(pointer);int flag=0;
+                charnext=fgetc(pointer);
+                printf("%d ",count++);
                 while(character!=EOF)
                 {
-                    if(flag==0)
+                    /*if(flag==0)
                     {
                         printf("%d) ",count++);
                         printf("%c",character);
@@ -91,16 +93,34 @@ int main(int argc,char* argv[])
                     character=fgetc(pointer);
                     if(character==EOF && flag!=0)
                     {
+                        printf(character);
                         break;
                     }
                     if(character==EOF && flag==0)
                     {
-                        printf("%d) ",count++);
-                        printf("\n");
+                        printf(character);
                         break;
                     }
                     if(character=='\n')
-                    flag=1;
+                    flag=1;*/
+                    if(character=='\n' && charnext!=EOF)
+                    {
+                        printf("\n");
+                        printf("%d ",count++);
+                        character=charnext;
+                        charnext=fgetc(pointer);
+                    }
+                    else
+                    {
+                        printf("%c",character);
+                        character=charnext;
+                        charnext=fgetc(pointer);
+                        if(charnext==EOF)
+                        {
+                            printf("%c",character);
+                            character=EOF;  
+                        }
+                    }
                 }
             }
             fclose(pointer);
