@@ -88,7 +88,7 @@ int main(int argc,char* argv[])
                         flag=0;
                     }
                     character=fgetc(pointer);
-                    if(character==EOF && flag!=2 && i!=check)
+                    if(character==EOF && flag!=2 && i!=(check-1))
                     {
                         printf("%d) ",count++);
                         break;
