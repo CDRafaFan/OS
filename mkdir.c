@@ -197,7 +197,7 @@ int main(int argc,char* argv[])
         for(int i=0;i<ind2-1;i++)
         {
             DIR* dir=opendir(listoffolders[i]);
-            if(ENOENT==errno)
+            if(!dir)
             {
                 flag=1;
                 break;
