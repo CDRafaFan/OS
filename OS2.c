@@ -191,7 +191,7 @@ void cd(char **args) {
             if (strcmp(args[1], "/") == 0) {
                 chdir("/");
             } else if (strcmp(args[1], "~") == 0 || strcmp(args[1], "root") == 0) {
-                chdir("~");
+                chdir("/root");
             } else {
                 /*char *path;
                 path = (char *) malloc(256 * sizeof(char));
