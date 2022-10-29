@@ -302,7 +302,7 @@ int main(int argc,char* argv[])
             {
                 newfindir[g++]=newdirectory[i];
             }
-            check2=chdir(listoffolders[ind2-1]);
+            check2=chdir(newfindir);
             if(check2==0)
             {
                 printf("mkdir: cannot create directory '");
