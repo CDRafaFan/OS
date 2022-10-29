@@ -166,12 +166,8 @@ int main(int argc,char* argv[])
             }
         }
         listoffolders[ind2++]=folderthis;
-        //for(int i=0;i<ind2;i++)
-        //{
-        //    printf("%s\n",listoffolders[i]);
-        //}
         int indcap;
-        /*for(int i=0;i<ind2;i++)
+        for(int i=0;i<ind2;i++)
         {
             DIR* dir=opendir(listoffolders[i]);
             if(ENOENT==errno)
@@ -192,7 +188,7 @@ int main(int argc,char* argv[])
             int check;
             char *newdirectory=listoffolders[i+1];
             check=mkdir(newdirectory,0777);
-        }*/
+        }
         int flag=0;
         for(int i=0;i<ind2-1;i++)
         {
@@ -219,17 +215,14 @@ int main(int argc,char* argv[])
                 newfindir[g++]=newdirectory[i];
             }
             check=mkdir(newfindir,0777);
-            if(check==0)
+            printf("mkdir: created directory ");
+            for(int i=0;i<ind2-1;i++)
             {
-                printf("mkdir: created directory ");
-                for(int i=0;i<ind2-1;i++)
-                {
-                    printf("%s/",listoffolders[i]);
-                }
-                printf("%s",listoffolders[ind2-1]);
-                chdir(newdirectory);
+                printf("%s/",listoffolders[i]);
             }
-        }
+            printf("%s\n",listoffolders[ind2-1]);
+            //chdir(newdirectory);
+            }
         else
         {
             printf("mkdir: cannot create directory '");
@@ -238,7 +231,7 @@ int main(int argc,char* argv[])
                     printf("%s/",listoffolders[i]);
                 }
             printf("%s'",listoffolders[ind2-1]);
-            printf(": No such file or directory exists");
+            printf(": No such file or directory exists\n");
         }
     }
 }
