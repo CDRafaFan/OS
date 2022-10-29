@@ -210,12 +210,15 @@ int main(int argc,char* argv[])
                 char *newdirectory=listoffolders[i];
                 char *newfindir;
                 newfindir=(char *)malloc(256*sizeof(char));int g=0;
-                for(int i=0;i<strlen(newdirectory)-1;i++)
+                for(int i=0;newdirectory[i]!=' ';i++)
                 {
                     newfindir[g++]=newdirectory[i];
                 }
-                check=mkdir(newfindir,0777);
-                chdir(newdirectory);
+                if(g>0)
+                {
+                    check=mkdir(newfindir,0777);
+                    //chdir(newdirectory);
+                }
             }
         }
     }
@@ -283,6 +286,7 @@ int main(int argc,char* argv[])
             int check=chdir(listoffolders[i]);
             if(check!=0)
             {
+                printf("%s",listoffolders[i]);
                 flag=1;
                 break;
             }
