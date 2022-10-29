@@ -206,7 +206,6 @@ int main(int argc,char* argv[])
                 break;
             }
         }
-        printf("%d",flag);
         if(flag==0)
         {
             for(int i=0;i<ind2-1;i++)
