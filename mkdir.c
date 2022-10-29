@@ -35,7 +35,7 @@ int main(int argc,char* argv[])
     comp[1]=argv[1][1];
     if(strcmp(comp,"-p")!=0 && strcmp(comp,"-v")!=0)
     {
-        int flag=0;
+        /*int flag=0;
         for(int i=0;argv[1][i]!='\0';i++)
         {
             if(argv[1][i]=='/')
@@ -56,6 +56,44 @@ int main(int argc,char* argv[])
                 finaldir[d++]=newdirectory[i];
             }
             check=mkdir(finaldir,0777);
+        }*/
+        char *list[256];int indct=0;
+        for(int i=0;i<strlen(argv[1]);i++)
+        {
+            char *newst;int indct2=0;
+            newst=(char *)malloc(256*sizeof(char));
+            for(int j=i;j<strlen(argv[1]);j++)
+            {
+                if(argv[1][j]==' ')
+                {
+                    break;
+                }
+                else
+                {
+                    newst[indct2++]=argv[1][i++];
+                }
+            }
+            list[indct++]=newst;
+        }
+        for(int i=0;i<indct;i++)
+        {
+            int flag=0;
+            for(int j=0;j<strlen(list[i]);j++)
+            {
+                if(list[i][j]=='/')
+                {
+                    flag=1;
+                    break;
+                }
+            }
+            if(flag==1)
+            {
+                printf("mkdir: cannot create directory '%s': No such file or directory\n",list[i]);
+            }
+            else
+            {
+                mkdir(list[i],0777);
+            }
         }
     }
     else
