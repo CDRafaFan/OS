@@ -92,7 +92,16 @@ int main(int argc,char* argv[])
             }
             else
             {
-                mkdir(list[i],0777);
+                int gt=chdir(list[i]);
+                if(gt==0)
+                {
+                    printf("mkdir: cannot create directory '%s': File exists\n",list[i]);
+                }
+                else
+                {
+                    int gy;
+                    gy=mkdir(list[i],0777);
+                }
             }
         }
     }
