@@ -192,13 +192,21 @@ int main(int argc,char* argv[])
         int flag=0;
         for(int i=0;i<ind2-1;i++)
         {
-            DIR* dir=opendir(listoffolders[i]);
-            if(!dir)
+            /*DIR* dir=opendir(listoffolders[i]);
+            if(ENOENT==errno)
+            {
+                printf("%s",listoffolders[i]);
+                flag=1;
+                break;
+            }*/
+            int check=chdir(listoffolders[i]);
+            if(check!=0)
             {
                 flag=1;
                 break;
             }
         }
+        printf("%d",flag);
         if(flag==0)
         {
             for(int i=0;i<ind2-1;i++)
