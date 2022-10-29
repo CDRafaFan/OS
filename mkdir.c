@@ -165,7 +165,41 @@ int main(int argc,char* argv[])
             if(i!=ind2-1)
             {
                 int check;
-                char *newdirectory=listoffolders[i];
+                char *newdirectory=listoffolders[i];int flag=0;int ind=-1;
+                for(int i=0;i<strlen(newdirectory);i++)
+                {
+                    if(newdirectory[i]==' ')
+                    {
+                        ind=i;
+                        flag=1;
+                        break;
+                    }
+                }
+                if(flag==1)
+                {
+                    if(ind==(strlen(newdirectory)-1))
+                    {
+                        char *again;int loagain=0;
+                        again=(char*)malloc(256*sizeof(char));
+                        for(int i=0;i<strlen(newdirectory)-1;i++)
+                        again[loagain++]=newdirectory[i];
+                        check=mkdir(again,0777);
+                        //chdir(newdirectory);
+                        printf("mkdir: cannot create directory '/%s': Permission denied",listoffolders[i+1]);
+                        break;
+                    }
+                    else
+                    {
+                        char *again;int loagain=0;
+                        again=(char*)malloc(256*sizeof(char));
+                        for(int i=0;i<ind;i++)
+                        {
+                            again[loagain++]=newdirectory[i];
+                        }
+                        check=mkdir(again,0777);
+                        break;
+                    }
+                }
                 check=mkdir(newdirectory,0777);
                 chdir(newdirectory);
             }
@@ -260,7 +294,7 @@ int main(int argc,char* argv[])
                 char *newdirectory2=listoffolders[i];
                 chdir(newdirectory2);
             }
-            int check;
+            int check;int check2;
             char *newdirectory=listoffolders[ind2-1];
             char *newfindir;
             newfindir=(char *)malloc(256*sizeof(char));int g=0;
@@ -268,15 +302,28 @@ int main(int argc,char* argv[])
             {
                 newfindir[g++]=newdirectory[i];
             }
-            check=mkdir(newfindir,0777);
-            printf("mkdir: created directory ");
-            for(int i=0;i<ind2-1;i++)
+            check2=chdir(listoffolders[ind2-1]);
+            if(check2==0)
             {
-                printf("%s/",listoffolders[i]);
+                printf("mkdir: cannot create directory '");
+                for(int i=0;i<ind2-1;i++)
+                {
+                    printf("%s/",listoffolders[i]);
+                }
+                printf("%s': File exists\n",listoffolders[ind2-1]);
             }
-            printf("%s\n",listoffolders[ind2-1]);
+            else
+            {
+                check=mkdir(newfindir,0777);
+                printf("mkdir: created directory ");
+                for(int i=0;i<ind2-1;i++)
+                {
+                    printf("%s/",listoffolders[i]);
+                }
+                printf("%s\n",listoffolders[ind2-1]);
             //chdir(newdirectory);
             }
+        }
         else
         {
             printf("mkdir: cannot create directory '");
