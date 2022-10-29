@@ -35,12 +35,40 @@ int main(int argc,char* argv[])
         time_t rawtime=time(NULL);
         struct tm * timeinfo;
         timeinfo = localtime(&rawtime);
-        int tnet;
+        int tnet;int mflag=0;int sflag=0;int hflag=0;
         if(timeinfo->tm_hour>=12)
         tnet=timeinfo->tm_hour-12;
         else
         tnet=timeinfo->tm_hour;
+        if(timeinfo->tm_min<10)
+        mflag=1;
+        if(timeinfo->tm_sec<10)
+        sflag=1;
+        if(tnet<10)
+        hflag=1;
+        if(mflag==0 && sflag==0 && hflag==0)
         printf("%s %d %s %d %d:%d:%d %s UTC\n",arr3[timeinfo->tm_wday],timeinfo->tm_mday,arr1[timeinfo->tm_mon],(timeinfo->tm_year+1900),tnet,timeinfo->tm_min,timeinfo->tm_sec,timeinfo->tm_hour>=12?"PM":"AM");
+        else
+        if(mflag==1 && sflag==1 && hflag==1)
+        printf("%s %d %s %d 0%d:0%d:0%d %s UTC\n",arr3[timeinfo->tm_wday],timeinfo->tm_mday,arr1[timeinfo->tm_mon],(timeinfo->tm_year+1900),tnet,timeinfo->tm_min,timeinfo->tm_sec,timeinfo->tm_hour>=12?"PM":"AM");
+        else
+        if(mflag==0 && sflag==1 && hflag==1)
+        printf("%s %d %s %d 0%d:%d:0%d %s UTC\n",arr3[timeinfo->tm_wday],timeinfo->tm_mday,arr1[timeinfo->tm_mon],(timeinfo->tm_year+1900),tnet,timeinfo->tm_min,timeinfo->tm_sec,timeinfo->tm_hour>=12?"PM":"AM");
+        else
+        if(mflag==0 && sflag==0 && hflag==1)
+        printf("%s %d %s %d 0%d:%d:%d %s UTC\n",arr3[timeinfo->tm_wday],timeinfo->tm_mday,arr1[timeinfo->tm_mon],(timeinfo->tm_year+1900),tnet,timeinfo->tm_min,timeinfo->tm_sec,timeinfo->tm_hour>=12?"PM":"AM");
+        else
+        if(mflag==1 && sflag==1 && hflag==0)
+        printf("%s %d %s %d %d:0%d:0%d %s UTC\n",arr3[timeinfo->tm_wday],timeinfo->tm_mday,arr1[timeinfo->tm_mon],(timeinfo->tm_year+1900),tnet,timeinfo->tm_min,timeinfo->tm_sec,timeinfo->tm_hour>=12?"PM":"AM");
+        else
+        if(mflag==1 && sflag==0 && hflag==1)
+        printf("%s %d %s %d 0%d:0%d:%d %s UTC\n",arr3[timeinfo->tm_wday],timeinfo->tm_mday,arr1[timeinfo->tm_mon],(timeinfo->tm_year+1900),tnet,timeinfo->tm_min,timeinfo->tm_sec,timeinfo->tm_hour>=12?"PM":"AM");
+        else
+        if(mflag==1 && sflag==0 && hflag==0)
+        printf("%s %d %s %d %d:0%d:%d %s UTC\n",arr3[timeinfo->tm_wday],timeinfo->tm_mday,arr1[timeinfo->tm_mon],(timeinfo->tm_year+1900),tnet,timeinfo->tm_min,timeinfo->tm_sec,timeinfo->tm_hour>=12?"PM":"AM");
+        else
+        if(mflag==0 && sflag==1 && hflag==0)
+        printf("%s %d %s %d %d:%d:0%d %s UTC\n",arr3[timeinfo->tm_wday],timeinfo->tm_mday,arr1[timeinfo->tm_mon],(timeinfo->tm_year+1900),tnet,timeinfo->tm_min,timeinfo->tm_sec,timeinfo->tm_hour>=12?"PM":"AM");
     }
     else
     if(strcmp(tok[0],"-R")==0 || strcmp(tok[0],"--rfc-email")==0)
@@ -48,6 +76,37 @@ int main(int argc,char* argv[])
         time_t rawtime=time(NULL);
         struct tm * timeinfo;
         timeinfo = localtime(&rawtime);
-        printf("%s, %d %s %d %d:%d:%d %s +%ld\n ",arr4[timeinfo->tm_wday],timeinfo->tm_mday,arr2[timeinfo->tm_mon],(timeinfo->tm_year+1900),timeinfo->tm_hour,timeinfo->tm_min,timeinfo->tm_sec,timeinfo->tm_hour>=12?"PM":"AM",timeinfo->tm_gmtoff);
+        int mflag=0;int sflag=0;int hflag=0;
+        if(timeinfo->tm_min<10)
+        mflag=1;
+        if(timeinfo->tm_min<10)
+        mflag=1;
+        if(timeinfo->tm_sec<10)
+        sflag=1;
+        if(timeinfo->tm_hour<10)
+        hflag=1;
+        if(mflag==0 && sflag==0 && hflag==0)
+        printf("%s, %d %s %d %d:%d:%d +%ld\n",arr4[timeinfo->tm_wday],timeinfo->tm_mday,arr2[timeinfo->tm_mon],(timeinfo->tm_year+1900),timeinfo->tm_hour,timeinfo->tm_min,timeinfo->tm_sec,timeinfo->tm_gmtoff);
+        else
+        if(mflag==1 && sflag==1 && hflag==1)
+        printf("%s, %d %s %d 0%d:0%d:0%d +%ld\n",arr4[timeinfo->tm_wday],timeinfo->tm_mday,arr2[timeinfo->tm_mon],(timeinfo->tm_year+1900),timeinfo->tm_hour,timeinfo->tm_min,timeinfo->tm_sec,timeinfo->tm_gmtoff);
+        else
+        if(mflag==0 && sflag==1 && hflag==1)
+        printf("%s, %d %s %d 0%d:%d:0%d +%ld\n",arr4[timeinfo->tm_wday],timeinfo->tm_mday,arr2[timeinfo->tm_mon],(timeinfo->tm_year+1900),timeinfo->tm_hour,timeinfo->tm_min,timeinfo->tm_sec,timeinfo->tm_gmtoff);
+        else
+        if(mflag==0 && sflag==0 && hflag==1)
+        printf("%s, %d %s %d 0%d:%d:%d +%ld\n",arr4[timeinfo->tm_wday],timeinfo->tm_mday,arr2[timeinfo->tm_mon],(timeinfo->tm_year+1900),timeinfo->tm_hour,timeinfo->tm_min,timeinfo->tm_sec,timeinfo->tm_gmtoff);
+        else
+        if(mflag==1 && sflag==1 && hflag==0)
+        printf("%s, %d %s %d %d:0%d:0%d +%ld\n",arr4[timeinfo->tm_wday],timeinfo->tm_mday,arr2[timeinfo->tm_mon],(timeinfo->tm_year+1900),timeinfo->tm_hour,timeinfo->tm_min,timeinfo->tm_sec,timeinfo->tm_gmtoff);
+        else
+        if(mflag==1 && sflag==0 && hflag==1)
+        printf("%s, %d %s %d 0%d:0%d:%d +%ld\n",arr4[timeinfo->tm_wday],timeinfo->tm_mday,arr2[timeinfo->tm_mon],(timeinfo->tm_year+1900),timeinfo->tm_hour,timeinfo->tm_min,timeinfo->tm_sec,timeinfo->tm_gmtoff);
+        else
+        if(mflag==1 && sflag==0 && hflag==0)
+        printf("%s, %d %s %d %d:0%d:%d +%ld\n",arr4[timeinfo->tm_wday],timeinfo->tm_mday,arr2[timeinfo->tm_mon],(timeinfo->tm_year+1900),timeinfo->tm_hour,timeinfo->tm_min,timeinfo->tm_sec,timeinfo->tm_gmtoff);
+        else
+        if(mflag==0 && sflag==1 && hflag==0)
+        printf("%s, %d %s %d %d:%d:0%d +%ld\n",arr4[timeinfo->tm_wday],timeinfo->tm_mday,arr2[timeinfo->tm_mon],(timeinfo->tm_year+1900),timeinfo->tm_hour,timeinfo->tm_min,timeinfo->tm_sec,timeinfo->tm_gmtoff);
     }
 }
