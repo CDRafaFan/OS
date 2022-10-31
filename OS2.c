@@ -5,6 +5,7 @@
 #include <sys/wait.h>
 #include <unistd.h>
 #include <libgen.h>
+#include <pthread.h>
 char *parentcwd;
 char* cd_read_line()
 {
@@ -205,7 +206,7 @@ void cd(char **args) {
                 }*/
                 int suc = chdir(args[1]);
                 if (suc == -1) {
-                    printf("No such file or directory");
+                    printf("cd: %s: No such file or directory\n",args[1]);
                 }
             }
         } else if (ct == 0) {
@@ -413,8 +414,133 @@ void mkdircall(char **args)
         wait(NULL);
     }
 }
+void* threadmkdir(void *t)
+{
+    char *p;
+    p=(char *)malloc(256*sizeof(char));
+    p=*(char **)t;
+    char file[100]="gcc";
+    char *ptr;
+    ptr=strcat(file," mkdir.c -o mkdir.o");
+    system(file);
+    /*char *str;
+    str=(char *)malloc(256*sizeof(char));
+    ptr=strcat(str,"./catty.o ");
+    int ct=0;
+    for(int i=0;tok2[i]!=NULL;i++)
+    ct++;
+    for(int i=0;i<ct-2;i++)
+    {
+        ptr=strcat(str,tok2[i]);
+        ptr=strcat(str," ");
+    }
+    ptr=strcat(str,tok2[ct-1]);*/
+    system(p);
+    return 0;
+}
+void* threaddate(void *t)
+{
+    char *p;
+    p=(char *)malloc(256*sizeof(char));
+    p=*(char **)t;
+    char file[100]="gcc";
+    char *ptr;
+    ptr=strcat(file," date.c -o date.o");
+    system(file);
+    /*char *str;
+    str=(char *)malloc(256*sizeof(char));
+    ptr=strcat(str,"./catty.o ");
+    int ct=0;
+    for(int i=0;tok2[i]!=NULL;i++)
+    ct++;
+    for(int i=0;i<ct-2;i++)
+    {
+        ptr=strcat(str,tok2[i]);
+        ptr=strcat(str," ");
+    }
+    ptr=strcat(str,tok2[ct-1]);*/
+    system(p);
+    return 0;
+}
+void* threadcat(void *t)
+{
+    char *p;
+    p=(char *)malloc(256*sizeof(char));
+    p=*(char **)t;
+    char file[100]="gcc";
+    char *ptr;
+    ptr=strcat(file," cat.c -o cat.o");
+    system(file);
+    /*char *str;
+    str=(char *)malloc(256*sizeof(char));
+    ptr=strcat(str,"./catty.o ");
+    int ct=0;
+    for(int i=0;tok2[i]!=NULL;i++)
+    ct++;
+    for(int i=0;i<ct-2;i++)
+    {
+        ptr=strcat(str,tok2[i]);
+        ptr=strcat(str," ");
+    }
+    ptr=strcat(str,tok2[ct-1]);*/
+    system(p);
+    return 0;
+}
+void* threadrm(void *t)
+{
+    char *p;
+    p=(char *)malloc(256*sizeof(char));
+    p=*(char **)t;
+    char file[100]="gcc";
+    char *ptr;
+    ptr=strcat(file," rm.c -o rm.o");
+    system(file);
+    /*char *str;
+    str=(char *)malloc(256*sizeof(char));
+    ptr=strcat(str,"./catty.o ");
+    int ct=0;
+    for(int i=0;tok2[i]!=NULL;i++)
+    ct++;
+    for(int i=0;i<ct-2;i++)
+    {
+        ptr=strcat(str,tok2[i]);
+        ptr=strcat(str," ");
+    }
+    ptr=strcat(str,tok2[ct-1]);*/
+    system(p);
+    return 0;
+}
+void* threadls(void *t)
+{
+    char *p;
+    p=(char *)malloc(256*sizeof(char));
+    p=*(char **)t;
+    char file[100]="gcc";
+    char *ptr;
+    ptr=strcat(file," ls.c -o ls.o");
+    system(file);
+    /*char *str;
+    str=(char *)malloc(256*sizeof(char));
+    ptr=strcat(str,"./catty.o ");
+    int ct=0;
+    for(int i=0;tok2[i]!=NULL;i++)
+    ct++;
+    for(int i=0;i<ct-2;i++)
+    {
+        ptr=strcat(str,tok2[i]);
+        ptr=strcat(str," ");
+    }
+    ptr=strcat(str,tok2[ct-1]);*/
+    system(p);
+    return 0;
+}
 void cd_exec(char **args)
 {
+    int countargs=0;
+    for(int i=0;args[i]!=NULL;i++)
+    {
+        countargs++;
+    }
     if(strcmp(args[0],"pwd")==0 || strcmp(args[0],"pwd\n")==0)
     {
         pwd();
@@ -433,33 +559,132 @@ void cd_exec(char **args)
         return;
     }
     else
-    if(strcmp(args[0],"mkdir")==0)
+    if(strcmp(args[0],"mkdir")==0 && strcmp(args[countargs-1],"&t")!=0)
     {
         mkdircall(args);
         return;
     }
     else
-    if(strcmp(args[0],"date")==0)
+    if(strcmp(args[0],"mkdir")==0 && strcmp(args[countargs-1],"&t")==0)
+    {
+        char *u;char *py;
+        u=(char *)malloc(256*sizeof(char));
+        py=strcat(u,"./mkdir.o ");
+        int ct=0;
+        for(int i=0;args[i]!=NULL;i++)
+        ct++;
+        for(int i=0;i<ct-2;i++)
+        {
+            py=strcat(u,args[i]);
+            py=strcat(u," ");
+        }
+        py=strcat(u,args[ct-2]);
+        pthread_t t;
+        pthread_create(&t,NULL,&threadmkdir,&py);
+        pthread_join(t,NULL);
+        return;
+    }
+    else
+    if(strcmp(args[0],"date")==0 && strcmp(args[countargs-1],"&t")!=0)
     {
         calldate(args);
         return;
     }
+    if(strcmp(args[0],"date")==0 && strcmp(args[countargs-1],"&t")==0)
+    {
+        char *u;char *py;
+        u=(char *)malloc(256*sizeof(char));
+        py=strcat(u,"./date.o ");
+        int ct=0;
+        for(int i=0;args[i]!=NULL;i++)
+        ct++;
+        for(int i=0;i<ct-2;i++)
+        {
+            py=strcat(u,args[i]);
+            py=strcat(u," ");
+        }
+        py=strcat(u,args[ct-2]);
+        pthread_t t;
+        pthread_create(&t,NULL,&threaddate,&py);
+        pthread_join(t,NULL);
+        return;
+    }
     else
-    if(strcmp(args[0],"ls")==0)
+    if(strcmp(args[0],"ls")==0 && strcmp(args[countargs-1],"&t")!=0)
     {
         callls(args);
         return;
     }
     else
-    if(strcmp(args[0],"rm")==0)
+    if(strcmp(args[0],"ls")==0 && strcmp(args[countargs-1],"&t")==0)
+    {
+        char *u;char *py;
+        u=(char *)malloc(256*sizeof(char));
+        py=strcat(u,"./ls.o ");
+        int ct=0;
+        for(int i=0;args[i]!=NULL;i++)
+        ct++;
+        for(int i=0;i<ct-2;i++)
+        {
+            py=strcat(u,args[i]);
+            py=strcat(u," ");
+        }
+        py=strcat(u,args[ct-2]);
+        pthread_t t;
+        pthread_create(&t,NULL,&threadls,&py);
+        pthread_join(t,NULL);
+        return;
+    }
+    else
+    if(strcmp(args[0],"rm")==0 && strcmp(args[countargs-1],"&t")!=0)
     {
         callrm(args);
         return;
     }
     else
-    if(strcmp(args[0],"cat")==0)
+    if(strcmp(args[0],"rm")==0 && strcmp(args[countargs-1],"&t")==0)
+    {
+        char *u;char *py;
+        u=(char *)malloc(256*sizeof(char));
+        py=strcat(u,"./rm.o ");
+        int ct=0;
+        for(int i=0;args[i]!=NULL;i++)
+        ct++;
+        for(int i=0;i<ct-2;i++)
+        {
+            py=strcat(u,args[i]);
+            py=strcat(u," ");
+        }
+        py=strcat(u,args[ct-2]);
+        pthread_t t;
+        pthread_create(&t,NULL,&threadrm,&py);
+        pthread_join(t,NULL);
+        return;
+    }
+    else
+    if(strcmp(args[0],"cat")==0 && strcmp(args[countargs-1],"&t")!=0)
     {
         callcat(args);
+        return;
+    }
+    else
+    if(strcmp(args[0],"cat")==0 && strcmp(args[countargs-1],"&t")==0)
+    {
+        char *u;char *py;
+        u=(char *)malloc(256*sizeof(char));
+        py=strcat(u,"./cat.o ");
+        int ct=0;
+        for(int i=0;args[i]!=NULL;i++)
+        ct++;
+        for(int i=0;i<ct-2;i++)
+        {
+            py=strcat(u,args[i]);
+            py=strcat(u," ");
+        }
+        py=strcat(u,args[ct-2]);
+        pthread_t t;
+        pthread_create(&t,NULL,&threadcat,&py);
+        pthread_join(t,NULL);
         return;
     }
     /*pid_t child_pid=fork();
